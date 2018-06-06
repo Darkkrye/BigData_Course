@@ -57,14 +57,10 @@ public class RetrofitHelper {
                 @Override
                 public void onResponse(Call<List<NGram>> call, Response<List<NGram>> response) {
                     if (response != null) {
-                        List<NGram> channels = response.body();
 
-                        if (channels != null) {
-                            mCurrentNGram = new Gson().fromJson(Label.JSON_BOX, listType);;
+                        mCurrentNGram = response.body();
 
-                        } else {
-                            listener.onRetrofitResult(false);
-                        }
+                        listener.onRetrofitResult(true);
                     } else {
                         listener.onRetrofitResult(false);
                     }
@@ -72,11 +68,9 @@ public class RetrofitHelper {
 
                 @Override
                 public void onFailure(Call<List<NGram>> call, Throwable t) {
-                    Type listType = new TypeToken<ArrayList<NGram>>(){}.getType();
 
-                    mCurrentNGram = new Gson().fromJson(Label.JSON_BOX, listType);
-                    listener.onRetrofitResult(true);
-                    //   t.printStackTrace();
+                    listener.onRetrofitResult(false);
+
                 }
             });
 
