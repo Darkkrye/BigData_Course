@@ -1,5 +1,7 @@
 package com.example.esgi.jmdoudoux_android;
 
+import java.util.ArrayList;
+
 public class Gram {
 
 
