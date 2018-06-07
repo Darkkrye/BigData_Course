@@ -12,10 +12,12 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.util.Log;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements INGram{
 
     Button firstButton;
     Button secondButton;
@@ -114,7 +116,26 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        Log.e("Main", "begining");
+
+
     }
 
 
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        RetrofitHelper.getNGram("Paris", this);
+    }
+
+    @Override
+    public void onRetrofitResult(boolean okay) {
+        if(okay){
+            Log.e("MAIN", "ok");
+        }else{
+            Log.e("MAIN", "ko");
+        }
+    }
 }
