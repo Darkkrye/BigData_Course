@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Try me out"
+        android:text=""
         android:textAlignment="center"
         android:layout_marginLeft="70dp"
         android:layout_marginTop="30dp"/>
@@ -30,22 +30,21 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"/>
+            android:text="Jes"/>
 
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:text="Tus"
             android:layout_marginLeft="50dp"/>
 
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:text="Saluts"
             android:layout_marginLeft="50dp"/>
-
     </LinearLayout>
 
     </RelativeLayout>
