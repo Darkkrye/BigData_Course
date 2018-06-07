@@ -99,7 +99,7 @@ public class NGramRepository {
         //this.initGram0();
         this.initGram1();
         this.initGram2();
-        this.initGram3();
+        //this.initGram3();
     }
 
     private void initGram0() {
@@ -133,6 +133,7 @@ public class NGramRepository {
         NGram ngram = new NGram();
         ngram.setN(new Long(1));
 
+        int i = 0;
         for (Row r : rows) {
             Gram g = new Gram();
             g.setNext((String) r.get(1));
@@ -142,6 +143,11 @@ public class NGramRepository {
             g.setOccurances((Long) r.get(2));
 
             ngram.getGrams().add(g);
+
+            if (i == 1000)
+                break;
+
+            i++;
         }
 
         this.ngrams.add(ngram);
@@ -152,6 +158,7 @@ public class NGramRepository {
         NGram ngram = new NGram();
         ngram.setN(new Long(2));
 
+        int i = 0;
         for (Row r : rows) {
             Gram g = new Gram();
             g.setNext((String) r.get(2));
@@ -162,6 +169,11 @@ public class NGramRepository {
             g.setOccurances((Long) r.get(3));
 
             ngram.getGrams().add(g);
+
+            if (i == 1000)
+                break;
+
+            i++;
         }
 
         this.ngrams.add(ngram);
