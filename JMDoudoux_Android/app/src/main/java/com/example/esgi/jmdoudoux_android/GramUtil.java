@@ -3,6 +3,7 @@ package com.example.esgi.jmdoudoux_android;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,34 +24,49 @@ public class GramUtil {
             ArrayList<String> nexts = new ArrayList<>();
 
             for (Gram g: ng.getGrams()) {
-                if (g.getWords().get(0) == word) {
+                if (g.getWords().get(0).equalsIgnoreCase(word)) {
                     grams.add(g);
                 }
             }
 
-            Collections.sort(grams, (gram, t1) -> gram.getOccurances() - t1.getOccurances());
+           // Collections.sort(grams, (gram, t1) -> gram.getOccurances() - t1.getOccurances());
+            Collections.sort(grams, new Comparator<Gram>() {
+                @Override
+                public int compare(Gram o1, Gram o2) {
+                    return o1.getOccurances()-o2.getOccurances();
+                }
+            });
 
             for (int i = 0; i < 3; i++) {
-                nexts.add(grams.get(i).getNext());
+                if (i < grams.size()) {
+                    Log.e("MAIN", "" + grams.size());
+                    nexts.add(grams.get(i).getNext());
+                }
             }
 
             return nexts;
         } else {
-            NGram ng = this.getGram(new Long(3));
+            NGram ng = this.getGram(new Long(2));
             ArrayList<Gram> grams = new ArrayList<>();
             ArrayList<String> nexts = new ArrayList<>();
 
             for (Gram g: ng.getGrams()) {
-                if (g.getWords().get(0) == word && g.getWords().get(1) == word2) {
+                if (g.getWords().get(0).equalsIgnoreCase(word) && g.getWords().get(1).equalsIgnoreCase(word2)) {
                     grams.add(g);
                 }
             }
 
-            Collections.sort(grams, (gram, t1) -> gram.getOccurances() - t1.getOccurances());
+            Collections.sort(grams, new Comparator<Gram>() {
+                @Override
+                public int compare(Gram o1, Gram o2) {
+                    return o1.getOccurances()-o2.getOccurances();
+                }
+            });
 
             for (int i = 0; i < 3; i++) {
+                if(i < grams.size()){
                 nexts.add(grams.get(i).getNext());
-            }
+            }}
 
             return nexts;
         }

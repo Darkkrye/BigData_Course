@@ -15,8 +15,8 @@ import android.widget.EditText;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
 public class MainActivity extends AppCompatActivity implements INGram{
 
     Button firstButton;
@@ -24,28 +24,19 @@ public class MainActivity extends AppCompatActivity implements INGram{
     Button thirdButton;
     EditText editText;
 
-    private void updateButtonsWith(String text1, String text2, String text3) {
-        firstButton.setText(text1);
-        secondButton.setText(text2);
-        thirdButton.setText(text3);
-    }
+    ArrayList<NGram> list;
 
-    private void sendToTool(String word, String word2) {
-        GramUtil gu = new GramUtil(new ArrayList<NGram>() {{
-            add(new NGram());
-            add(new NGram());
-        }});
-        ArrayList<String> nexts = gu.getNextWords(word, word2);
-
-        firstButton.setText(nexts.get(0));
-        secondButton.setText(nexts.get(1));
-        thirdButton.setText(nexts.get(2));
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        RetrofitHelper.getNGram(this);
+
+       //WebService ws = new WebService();
+
+       //ws.getNGRAm();
+       //Log.e("MAIN", "ngram ok");
 
         this.editText = (EditText) findViewById(R.id.editText);
         this.firstButton = (Button) findViewById(R.id.button);
@@ -55,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements INGram{
         this.firstButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("TAG", "Button 1");
                 Button b = (Button) view;
                 editText.append(b.getText() + " ");
             }
@@ -64,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements INGram{
         this.secondButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("TAG", "Button 2");
                 Button b = (Button) view;
                 editText.append(b.getText() + " ");
             }
@@ -73,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements INGram{
         this.thirdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("TAG", "Button 3");
                 Button b = (Button) view;
                 editText.append(b.getText() + " ");
             }
@@ -104,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements INGram{
                             if (lw2.charAt(lw2.length() - 1) == '.') {
                                 sendToTool(lw, null);
                             } else {
-                                sendToTool(lw, lw2);
+                                sendToTool(lw, null);
                             }
                         }
                     }
@@ -122,17 +110,47 @@ public class MainActivity extends AppCompatActivity implements INGram{
 
     }
 
+    private void updateButtonsWith(String text1, String text2, String text3) {
+        firstButton.setText(text1);
+        secondButton.setText(text2);
+        thirdButton.setText(text3);
+    }
+
+    private void sendToTool(String word, String word2) {
+        GramUtil gu = new GramUtil(list);
+        ArrayList<String> nexts = gu.getNextWords(word, word2);
+
+        if(nexts.get(0) != null)
+            firstButton.setText(nexts.get(0));
+        else
+            firstButton.setText("");
+
+        if(nexts.get(1) != null)
+            secondButton.setText(nexts.get(1));
+        else
+            secondButton.setText("");
+
+        if(nexts.get(2) != null)
+            thirdButton.setText(nexts.get(2));
+        else
+            thirdButton.setText("");
+
+    }
+
 
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        RetrofitHelper.getNGram("Paris", this);
+
     }
 
     @Override
-    public void onRetrofitResult(boolean okay) {
+    public void onRetrofitResult(boolean okay, ArrayList<NGram> lista) {
+        list = lista;
+
         if(okay){
+
             Log.e("MAIN", "ok");
         }else{
             Log.e("MAIN", "ko");

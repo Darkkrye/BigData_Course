@@ -144,9 +144,7 @@ public class NGramRepository {
 
             ngram.getGrams().add(g);
 
-            if (i == 1000)
-                break;
-
+            
             i++;
         }
 
@@ -170,9 +168,7 @@ public class NGramRepository {
 
             ngram.getGrams().add(g);
 
-            if (i == 1000)
-                break;
-
+            
             i++;
         }
 

@@ -30,20 +30,20 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Jes"/>
+            android:text="je"/>
 
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tus"
+            android:text="tu"
             android:layout_marginLeft="50dp"/>
 
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Saluts"
+            android:text="salut"
             android:layout_marginLeft="50dp"/>
     </LinearLayout>
 
